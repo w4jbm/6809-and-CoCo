@@ -22,21 +22,19 @@
 ; ability to multiply two 16 bit numbers, but this code will work on both
 ; the 6809 and the 6309.
 ;
-.cpu	M6809
+org	$4000
 
-org		$4000
-
-random:	ldd rannum		; load current random number value
-		adda rannum+1	; d = old random * $101
-        aslb			; d = old random * $202
+random:	ldd rannum	; load current random number value
+	adda rannum+1	; d = old random * $101
+        aslb		; d = old random * $202
         rola
         adda rannum+1	; d = old random * $302
-        aslb			; d = old random * $604
+        aslb		; d = old random * $604
         rola
-        addd rannum		; d = old random * $605
-        addd #13849		; d is now new random number
-        std rannum		; store it
-        rts				; and return
+        addd rannum	; d = old random * $605
+        addd #13849	; d is now new random number
+        std rannum	; store it
+        rts		; and return
 ;
 ; random number is stored following the code, but can be moved
 ; to other locations in memory
